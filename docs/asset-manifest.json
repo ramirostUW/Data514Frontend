@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Data514Frontend/static/css/main.073c9b0a.css",
-    "main.js": "/Data514Frontend/static/js/main.bd1a3737.js",
+    "main.js": "/Data514Frontend/static/js/main.624b920f.js",
     "static/media/load.gif": "/Data514Frontend/static/media/load.c7d9f0819b0870f9ad8e.gif",
     "index.html": "/Data514Frontend/index.html",
     "main.073c9b0a.css.map": "/Data514Frontend/static/css/main.073c9b0a.css.map",
-    "main.bd1a3737.js.map": "/Data514Frontend/static/js/main.bd1a3737.js.map"
+    "main.624b920f.js.map": "/Data514Frontend/static/js/main.624b920f.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.bd1a3737.js"
+    "static/js/main.624b920f.js"
   ]
 }
