@@ -27,11 +27,11 @@ const QueryList = () => {
         {
             title: "From which country have the tweets been most actively posted (most number of tweets)?",
             query: `
-            Select country_code, count(Tweet.id) as num_tweet
-            from Tweet inner join Places on Tweet.place_id = Places.id
-            group by Places.country_code
-            order by count(Tweet.id) DESC
-            Limit 1;            
+            Select CountryCodes.name as country, count(Tweet.id) as num_tweet from 
+            Tweet 
+            inner join Places on Tweet.place_id = Places.id 
+            inner join CountryCodes on CountryCodes.country_code = Places.country_code
+            group by CountryCodes.name order by count(Tweet.id) DESC Limit 1;                      
             `
         },        
         {
@@ -53,19 +53,6 @@ const QueryList = () => {
             GROUP BY hashtag
             ORDER BY COUNT(*) DESC            
             `
-        },
-        {
-            title: "Are there any three users A, B, C such that: Any of User A's tweet/s were replied to by B and C and vice versa, and B has replied to any of C's tweet/s and vice versa. How many such trios exist? Display each trio with names, screen names of users. ",
-            query: `
-            Select Distinct u1.screen_name as UserA, u2.screen_name as UserB, u3.screen_name as UserC 
-            from Tweet t1 
-            inner join Tweet t2 on t1.in_reply_to_status_id = t2.id
-            inner join Tweet t3 on t2.in_reply_to_status_id = t3.id
-            inner join User u1 on t1.user_id = u1.user_id 
-            inner join User u2 on t2.user_id = u2.user_id
-            inner join User u3 on t3.user_id = u3.user_id
-            where u1.screen_name < u2.screen_name and u2.screen_name < u3.screen_name;
-          `
         },
         {
             title: "(nature of engagement) For each verified user, what is the percentage of different types of tweets (simple tweet, reply, retweet, quoted tweet) to their overall number of tweets?",
@@ -95,6 +82,21 @@ const QueryList = () => {
             JOIN
                 User u ON twt.user_id = u.user_id;
             `
+        },
+        {
+            title: "(BONUS sixth question): Are there any three users A, B, C such that: User B replied to one of user A's tweets, and user C replied to that tweet of User B's that was a reply to User A, and User A replied to some other, unrelated, tweet of User C's? ",
+            query: `
+            Select Distinct u1.screen_name as UserA, u2.screen_name as UserB, u3.screen_name as UserC 
+            from Tweet t1 
+            inner join Tweet t2 on t1.in_reply_to_status_id = t2.id
+            inner join Tweet t3 on t2.in_reply_to_status_id = t3.id
+            inner join User u1 on t1.user_id = u1.user_id 
+            inner join User u2 on t2.user_id = u2.user_id
+            inner join User u3 on t3.user_id = u3.user_id
+            inner join Tweet t4 on t4.user_id = u3.user_id
+            inner join Tweet t5 on t5.user_id = u1.user_id AND t5.in_reply_to_status_id = t4.id
+            where u1.screen_name < u2.screen_name and u2.screen_name < u3.screen_name;
+          `
         }
 
     ];
