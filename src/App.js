@@ -17,7 +17,7 @@ function App() {
           to refresh after a NetworkError.
         </p>
         {queries.map((queryOption, index) => (
-          <a href={"question" + index}>{queryOption.title}</a>
+          <a href={"#/question" + index}>{queryOption.title}</a>
         ))}
       </header>
     </div>
